@@ -1,5 +1,4 @@
 import {
-  AppConfig,
   openContractCall,
   showConnect,
   UserSession,
@@ -70,13 +69,13 @@ export function App() {
     );
   } else {
     return (
-      <div>
+      <div className="mint-container">
         <button
           onClick={() =>
             showConnect({
               appDetails: {
-                name: "Webflow",
-                icon: "https://webpack.js.org/site-logo.1fcab817090e78435061.svg",
+                name: "StacksPandas",
+                icon: "https://i.ibb.co/FW6Pwvr/stacks.png",
               },
               onFinish: () => {
                 setUser(userSession.loadUserData());
