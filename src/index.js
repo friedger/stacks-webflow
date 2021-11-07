@@ -1,8 +1,4 @@
-import {
-  openContractCall,
-  showConnect,
-  UserSession,
-} from "@stacks/connect";
+import { openContractCall, showConnect, UserSession } from "@stacks/connect";
 import { AnchorMode } from "@stacks/transactions";
 import { StacksMainnet } from "@stacks/network";
 import React, { useState } from "react";
@@ -59,8 +55,12 @@ export function App() {
         </button>
         <button
           onClick={() => {
-            userSession.signUserOut();
-            setUser(undefined);
+            try {
+              userSession.signUserOut();
+              setUser(undefined);
+            } catch (e) {
+              console.log(e);
+            }
           }}
         >
           Disconnect
