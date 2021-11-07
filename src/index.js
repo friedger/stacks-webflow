@@ -75,7 +75,7 @@ export function App() {
             showConnect({
               appDetails: {
                 name: "StacksPandas",
-                icon: "https://i.ibb.co/FW6Pwvr/stacks.png",
+                icon: "https://youthful-wing-084af9.netlify.app/stackschina.png",
               },
               onFinish: () => {
                 setUser(userSession.loadUserData());
