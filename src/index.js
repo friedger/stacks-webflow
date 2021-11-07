@@ -26,7 +26,7 @@ export function App() {
   const [count, setCount] = useState(1);
   if (user || userSession.isUserSignedIn()) {
     return (
-      <div style={{ display: "inline" }}>
+      <div className="mint-container">
         <button
           onClick={() => {
             setCount(count - 1 < 1 ? 1 : count - 1);
@@ -34,7 +34,7 @@ export function App() {
         >
           -
         </button>
-        <div style={{ display: "inline" }}>{count}</div>
+        <div className="count">{count}</div>
         <button
           onClick={() => {
             setCount(count + 1 > 5 ? 5 : count + 1);
