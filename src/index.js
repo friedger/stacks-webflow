@@ -74,7 +74,7 @@ export function App() {
           onClick={() =>
             showConnect({
               appDetails: {
-                name: "StacksPandas",
+                name: "Stacks China",
                 icon: "https://youthful-wing-084af9.netlify.app/stackschina.png",
               },
               onFinish: () => {
@@ -83,7 +83,7 @@ export function App() {
             })
           }
         >
-          Connect with Stacks Wallet
+          Mint a StacksPanda
         </button>
       </div>
     );
