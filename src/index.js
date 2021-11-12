@@ -1,10 +1,10 @@
 import { openContractCall, showConnect, UserSession } from "@stacks/connect";
-import { AnchorMode } from "@stacks/transactions";
+import { AnchorMode, stringAsciiCV } from "@stacks/transactions";
 import { StacksMainnet } from "@stacks/network";
 import React, { useState } from "react";
 
 import ReactDOM from "react-dom";
-import { PandaMintContract } from "./artifacts/contracts.ts";
+import { PandaMintContract, PandaNftContract } from "./artifacts/contracts.ts";
 
 const userSession = new UserSession();
 const network = new StacksMainnet();
@@ -16,10 +16,16 @@ const functions = [
   PandaMintContract.Functions.MintFour,
   PandaMintContract.Functions.MintFive,
 ];
+const baseUri = "ipfs://QmTODO/{id}.json";
+
 export function App() {
   const [user, setUser] = useState();
   const [count, setCount] = useState(1);
   if (user || userSession.isUserSignedIn()) {
+    const isContractOwner =
+      userSession.loadUserData()?.profile?.stxAddress?.mainnet ===
+      "SP1T4Y4WK9DGZ2EDWSNHRE5HRRBPVG7S46JAHW552";
+    console.log({ userData: userSession.loadUserData(), isContractOwner });
     return (
       <div className="mint-container">
         <button
@@ -65,6 +71,42 @@ export function App() {
         >
           Disconnect
         </button>
+        {isContractOwner && (
+          <div>
+            <br />
+            <button
+              onClick={() => {
+                openContractCall({
+                  contractAddress: PandaNftContract.address,
+                  contractName: PandaNftContract.name,
+                  functionName: PandaNftContract.Functions.SetBaseUri,
+                  functionArgs: [stringAsciiCV(baseUri)],
+                  anchorMode: AnchorMode.ANY,
+                  userSession,
+                  network,
+                });
+              }}
+            >
+              Reveal Pandas ({baseUri})
+            </button>
+            <br />
+            <button
+              onClick={() => {
+                openContractCall({
+                  contractAddress: PandaNftContract.address,
+                  contractName: PandaNftContract.name,
+                  functionName: PandaNftContract.Functions.FreezeMetadata,
+                  functionArgs: [],
+                  anchorMode: AnchorMode.ANY,
+                  userSession,
+                  network,
+                });
+              }}
+            >
+              Freeze Metadata (can be called only once)
+            </button>
+          </div>
+        )}
       </div>
     );
   } else {
@@ -83,7 +125,7 @@ export function App() {
             })
           }
         >
-          Mint a StacksPanda
+          Mint a Stacks Panda
         </button>
       </div>
     );
