@@ -4,7 +4,7 @@
 import { ClarityValue, BooleanCV, TrueCV, FalseCV, IntCV, UIntCV, BufferCV, OptionalCV, NoneCV, SomeCV, ResponseCV, ResponseOkCV, ResponseErrorCV, PrincipalCV, StandardPrincipalCV, ContractPrincipalCV, ListCV, TupleCV, StringAsciiCV, StringUtf8CV } from "@stacks/transactions"
 
 export namespace CommissionFixedContract {
-    export const address = "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM";
+    export const address = "SP1T4Y4WK9DGZ2EDWSNHRE5HRRBPVG7S46JAHW552";
     export const name = "commission-fixed";
 
     // Functions
@@ -31,7 +31,7 @@ export namespace CommissionFixedContract {
 }
 
 export namespace CommissionNopContract {
-    export const address = "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM";
+    export const address = "SP3D6PV2ACBPEKYJTCMH7HEN02KP87QSP8KTEH335";
     export const name = "commission-nop";
 
     // Functions
@@ -58,19 +58,19 @@ export namespace CommissionNopContract {
 }
 
 export namespace CommissionTraitContract {
-    export const address = "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM";
+    export const address = "SP3D6PV2ACBPEKYJTCMH7HEN02KP87QSP8KTEH335";
     export const name = "commission-trait";
 
 }
 
 export namespace NftTraitContract {
-    export const address = "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM";
+    export const address = "SP2PABAF9FTAJYNFZH93XENAJ8FVY99RRM50D2JG9";
     export const name = "nft-trait";
 
 }
 
 export namespace PandaNftContract {
-    export const address = "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM";
+    export const address = "SP1T4Y4WK9DGZ2EDWSNHRE5HRRBPVG7S46JAHW552";
     export const name = "panda-nft";
 
     // Functions
@@ -277,7 +277,7 @@ export namespace PandaNftContract {
 }
 
 export namespace PandaMintContract {
-    export const address = "ST1PQHQKV0RJXZFY1DGX8MNSNYVE3VGZJSRTPGZGM";
+    export const address = "SP1T4Y4WK9DGZ2EDWSNHRE5HRRBPVG7S46JAHW552";
     export const name = "panda-mint";
 
     // Functions
