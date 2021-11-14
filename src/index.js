@@ -77,9 +77,43 @@ export function App() {
             <button
               onClick={() => {
                 openContractCall({
+                  contractAddress: PandaMintContract.address,
+                  contractName: PandaMintContract.name,
+                  functionName: PandaMintContract.Functions.FlipMintpassSale.name,
+                  functionArgs: [],
+                  anchorMode: AnchorMode.ANY,
+                  userSession,
+                  network,
+                });
+              }}
+            >
+              Start Premint Sale
+            </button>
+
+            <br />
+            <button
+              onClick={() => {
+                openContractCall({
+                  contractAddress: PandaMintContract.address,
+                  contractName: PandaMintContract.name,
+                  functionName: PandaMintContract.Functions.FlipSale.name,
+                  functionArgs: [],
+                  anchorMode: AnchorMode.ANY,
+                  userSession,
+                  network,
+                });
+              }}
+            >
+              Start Public Sale
+            </button>
+            <br />
+            <button
+              disabled
+              onClick={() => {
+                openContractCall({
                   contractAddress: PandaNftContract.address,
                   contractName: PandaNftContract.name,
-                  functionName: PandaNftContract.Functions.SetBaseUri,
+                  functionName: PandaNftContract.Functions.SetBaseUri.name,
                   functionArgs: [stringAsciiCV(baseUri)],
                   anchorMode: AnchorMode.ANY,
                   userSession,
@@ -91,11 +125,12 @@ export function App() {
             </button>
             <br />
             <button
+              disabled
               onClick={() => {
                 openContractCall({
                   contractAddress: PandaNftContract.address,
                   contractName: PandaNftContract.name,
-                  functionName: PandaNftContract.Functions.FreezeMetadata,
+                  functionName: PandaNftContract.Functions.FreezeMetadata.name,
                   functionArgs: [],
                   anchorMode: AnchorMode.ANY,
                   userSession,
