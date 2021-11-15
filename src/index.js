@@ -1,5 +1,11 @@
 import { openContractCall, showConnect, UserSession } from "@stacks/connect";
-import { AnchorMode, stringAsciiCV } from "@stacks/transactions";
+import {
+  AnchorMode,
+  stringAsciiCV,
+  PostConditionMode,
+  makeStandardSTXPostCondition,
+  FungibleConditionCode,
+} from "@stacks/transactions";
 import { StacksMainnet } from "@stacks/network";
 import React, { useState } from "react";
 
@@ -22,8 +28,9 @@ export function App() {
   const [user, setUser] = useState();
   const [count, setCount] = useState(1);
   if (user || userSession.isUserSignedIn()) {
+    const profile = userSession.loadUserData()?.profile;
     const isContractOwner =
-      userSession.loadUserData()?.profile?.stxAddress?.mainnet ===
+      profile?.stxAddress?.mainnet ===
       "SP1T4Y4WK9DGZ2EDWSNHRE5HRRBPVG7S46JAHW552";
     console.log({ userData: userSession.loadUserData(), isContractOwner });
     return (
@@ -44,6 +51,7 @@ export function App() {
           +
         </button>
         <button
+          disabled={!profile}
           onClick={() => {
             const fn = functions[count - 1];
             openContractCall({
@@ -52,6 +60,14 @@ export function App() {
               functionName: fn.name,
               functionArgs: [],
               anchorMode: AnchorMode.ANY,
+              postConditionMode: PostConditionMode.Deny,
+              postConditions: [
+                makeStandardSTXPostCondition(
+                  profile.stxAddress.mainnet,
+                  FungibleConditionCode.Equal,
+                  count * 25_000_000
+                ),
+              ],
               userSession,
               network,
             });
@@ -79,7 +95,8 @@ export function App() {
                 openContractCall({
                   contractAddress: PandaMintContract.address,
                   contractName: PandaMintContract.name,
-                  functionName: PandaMintContract.Functions.FlipMintpassSale.name,
+                  functionName:
+                    PandaMintContract.Functions.FlipMintpassSale.name,
                   functionArgs: [],
                   anchorMode: AnchorMode.ANY,
                   userSession,
