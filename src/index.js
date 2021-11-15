@@ -45,7 +45,7 @@ export function App() {
         <div className="count">{count}</div>
         <button
           onClick={() => {
-            setCount(count + 1 > 5 ? 5 : count + 1);
+            setCount(count + 1 > 2 ? 2 : count + 1);
           }}
         >
           +
