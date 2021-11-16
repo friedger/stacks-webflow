@@ -27,16 +27,18 @@ const baseUri = "ipfs://QmTODO/{id}.json";
 export function App() {
   const [user, setUser] = useState();
   const [count, setCount] = useState(1);
+  const [status, setStatus] = useState();
+
   if (user || userSession.isUserSignedIn()) {
     const profile = userSession.loadUserData()?.profile;
     const isContractOwner =
       profile?.stxAddress?.mainnet ===
       "SP1T4Y4WK9DGZ2EDWSNHRE5HRRBPVG7S46JAHW552";
-    console.log({ userData: userSession.loadUserData(), isContractOwner });
     return (
       <div className="mint-container">
         <button
           onClick={() => {
+            setStatus(undefined);
             setCount(count - 1 < 1 ? 1 : count - 1);
           }}
         >
@@ -45,6 +47,7 @@ export function App() {
         <div className="count">{count}</div>
         <button
           onClick={() => {
+            setStatus(undefined);
             setCount(count + 1 > 5 ? 5 : count + 1);
           }}
         >
@@ -53,6 +56,7 @@ export function App() {
         <button
           disabled={!profile}
           onClick={() => {
+            setStatus(undefined);
             const fn = functions[count - 1];
             openContractCall({
               contractAddress: PandaMintContract.address,
@@ -70,6 +74,12 @@ export function App() {
               ],
               userSession,
               network,
+              onFinish: () => {
+                setStatus(fn.name + " transaction sent");
+              },
+              onCancel: () => {
+                setStatus(fn.name + " transaction canceled");
+              },
             });
           }}
         >
@@ -80,6 +90,8 @@ export function App() {
             try {
               userSession.signUserOut();
               setUser(undefined);
+              // call isUserSignIn to update the UI
+              userSession.isUserSignedIn();
             } catch (e) {
               console.log(e);
             }
@@ -87,11 +99,14 @@ export function App() {
         >
           Disconnect
         </button>
+        {status && <div className="status">{status}</div>}
+
         {isContractOwner && (
           <div>
             <br />
             <button
               onClick={() => {
+                setStatus(undefined);
                 openContractCall({
                   contractAddress: PandaMintContract.address,
                   contractName: PandaMintContract.name,
@@ -101,6 +116,12 @@ export function App() {
                   anchorMode: AnchorMode.ANY,
                   userSession,
                   network,
+                  onFinish: () => {
+                    setStatus(
+                      PandaNftContract.Functions.FlipMintpassSale.name +
+                        " transaction sent"
+                    );
+                  },
                 });
               }}
             >
@@ -110,6 +131,7 @@ export function App() {
             <br />
             <button
               onClick={() => {
+                setStatus(undefined);
                 openContractCall({
                   contractAddress: PandaMintContract.address,
                   contractName: PandaMintContract.name,
@@ -118,6 +140,11 @@ export function App() {
                   anchorMode: AnchorMode.ANY,
                   userSession,
                   network,
+                  onFinish: () => {
+                    setStatus(
+                      PandaNftContract.Functions.FlipSale.name + " transaction sent"
+                    );
+                  },
                 });
               }}
             >
@@ -127,6 +154,7 @@ export function App() {
             <button
               disabled
               onClick={() => {
+                setStatus(undefined);
                 openContractCall({
                   contractAddress: PandaNftContract.address,
                   contractName: PandaNftContract.name,
@@ -135,6 +163,11 @@ export function App() {
                   anchorMode: AnchorMode.ANY,
                   userSession,
                   network,
+                  onFinish: () => {
+                    setStatus(
+                      PandaNftContract.Functions.SetBaseUri.name + " transaction sent"
+                    );
+                  },
                 });
               }}
             >
@@ -144,6 +177,7 @@ export function App() {
             <button
               disabled
               onClick={() => {
+                setStatus(undefined);
                 openContractCall({
                   contractAddress: PandaNftContract.address,
                   contractName: PandaNftContract.name,
@@ -152,6 +186,12 @@ export function App() {
                   anchorMode: AnchorMode.ANY,
                   userSession,
                   network,
+                  onFinish: () => {
+                    setStatus(
+                      PandaNftContract.Functions.FreezeMetadata.name +
+                        " transaction sent"
+                    );
+                  },
                 });
               }}
             >
