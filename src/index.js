@@ -168,7 +168,7 @@ export function App() {
           onClick={() =>
             showConnect({
               appDetails: {
-                name: "Stacks China",
+                name: "Stacks Panda",
                 icon: "https://youthful-wing-084af9.netlify.app/stackschina.png",
               },
               onFinish: () => {
