@@ -22,7 +22,7 @@ const functions = [
   PandaMintContract.Functions.MintFour,
   PandaMintContract.Functions.MintFive,
 ];
-const baseUri = "ipfs://QmTODO/{id}.json";
+const baseUri = "ipfs://QmXxAG3j9JDsXNWMeKsca6djYsi9hhtWCZT9JjoA81SsZu/{id}.json";
 
 export function App() {
   const [user, setUser] = useState();
@@ -152,7 +152,6 @@ export function App() {
             </button>
             <br />
             <button
-              disabled
               onClick={() => {
                 setStatus(undefined);
                 openContractCall({
@@ -175,7 +174,6 @@ export function App() {
             </button>
             <br />
             <button
-              disabled
               onClick={() => {
                 setStatus(undefined);
                 openContractCall({
